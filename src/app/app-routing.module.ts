@@ -7,12 +7,16 @@ import { FairsComponent } from './shared/component/fairs/fairs.component';
 import { PagenotfoundComponent } from './shared/component/pagenotfound/pagenotfound.component';
 import { ProductComponent } from './shared/component/products/product/product.component';
 import { ProductformComponent } from './shared/component/products/productform/productform.component';
+import { FairDetailsComponent } from './shared/component/fairs/fair-details/fair-details.component';
+import { AuthComponent } from './shared/component/auth/auth.component';
+import { AuthGuardService } from './shared/service/auth-guard.service';
 
 const routes: Routes = [
   {
     path:"",
-    redirectTo:"home",
-    pathMatch:"full"
+    component:AuthComponent
+    // redirectTo:"home",
+    // pathMatch:"full"
   },
   {
     path:"home",
@@ -24,23 +28,33 @@ const routes: Routes = [
   },
   {
     path:"products",
-    component:ProductsComponent
+    component:ProductsComponent,
+    children:[
+      {
+        path:"addproduct",
+        component:ProductformComponent
+      },
+      {
+        path:":id",
+        component:ProductComponent
+      },
+      {
+        path:":id/edit",
+        component:ProductformComponent
+      },
+    ]
   },
-  {
-    path:"products/addproduct",
-    component:ProductformComponent
-  },
-  {
-    path:"products/:id",
-    component:ProductComponent
-  },
-  {
-    path:"products/:id/edit",
-    component:ProductformComponent
-  },
+
   {
     path:"fairs",
-    component:FairsComponent
+    component:FairsComponent,
+    canActivate:[AuthGuardService],
+    children:[
+      {
+        path:":fairId",
+        component:FairDetailsComponent
+      }
+    ]
   },
   {
     path:"pagenotfound",

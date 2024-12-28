@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Iproduct } from 'src/app/shared/model/product';
 import { ProductService } from 'src/app/shared/service/product.service';
 import { UuidService } from 'src/app/shared/service/uuid.service';
@@ -18,6 +18,8 @@ productobj!:Iproduct
 productForm!:FormGroup
 
 isIneditmode : boolean = false
+
+updatebtnFlag:boolean = false
 
   constructor(
     private _routes:ActivatedRoute,
@@ -47,6 +49,16 @@ isIneditmode : boolean = false
         canreturn:this.productobj.canreturn? "Yes" : "No",
         isAvailable:this.productobj.isAvailable? "Yes" : "No"})
     }
+
+    this._routes.queryParams
+    .subscribe((params:Params)=>{
+      console.log(params)
+
+      if(params['canreturn']=== '0'){
+        this.productForm.disable()
+        this.updatebtnFlag = true
+      }
+    })
   }
 
   onproductAdd(){

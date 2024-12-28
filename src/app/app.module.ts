@@ -14,6 +14,9 @@ import { FairsComponent } from './shared/component/fairs/fairs.component';
 import { PagenotfoundComponent } from './shared/component/pagenotfound/pagenotfound.component';
 import { ProductComponent } from './shared/component/products/product/product.component';
 import { ProductformComponent } from './shared/component/products/productform/productform.component';
+import { FairCardsComponent } from './shared/component/fairs/fair-cards/fair-cards.component';
+import { FairDetailsComponent } from './shared/component/fairs/fair-details/fair-details.component';
+import { AuthComponent } from './shared/component/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { ProductformComponent } from './shared/component/products/productform/pr
     FairsComponent,
     PagenotfoundComponent,
     ProductComponent,
-    ProductformComponent
+    ProductformComponent,
+    FairCardsComponent,
+    FairDetailsComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

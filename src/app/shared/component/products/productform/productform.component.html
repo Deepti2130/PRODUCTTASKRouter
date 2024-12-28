@@ -91,6 +91,7 @@
         mat-raised-button color="primary" class="mr-3">Add Product</button>
 
         <button
+        [disabled]="updatebtnFlag"
         (click)="onupdateproduct()"
         *ngIf="isIneditmode"
         type="button"

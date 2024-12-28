@@ -171,7 +171,10 @@ this._snackBar.opensnackBar(`The new product of ${postobj.name} is added success
     let getIndex = this.productsArr.findIndex(prod=>prod.id === product.id)
 
     this.productsArr[getIndex] = product
-    this._router.navigate(['/products'])
+    this._router.navigate(['/products',product.id],{
+    // queryParamsHandling:"preserve"
+    queryParams:{canreturn:product.canreturn}
+    })
 this._snackBar.opensnackBar(`The product of ${product.name} is updated successfully!!!`)
   }
 

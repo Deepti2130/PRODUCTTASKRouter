@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Iproduct } from 'src/app/shared/model/product';
 import { ProductService } from 'src/app/shared/service/product.service';
 
@@ -22,11 +22,22 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     //fisrt we need a product id
-    this.productId = this._routes.snapshot.params['id']
+    // this.productId = this._routes.snapshot.params['id']
 
-    if(this.productId){
-      this.productobj=this._productservice.fetchproduct(this.productId)
-    }
+    // if(this.productId){
+    //   this.productobj=this._productservice.fetchproduct(this.productId)
+    // }
+
+    //if we using child routing then product comp not working by using snapshot.params, hence we used observable
+
+    this._routes.params
+    .subscribe((params:Params)=>{
+      // console.log(params)
+      this.productId = params['id']
+      if(this.productId){
+        this.productobj=this._productservice.fetchproduct(this.productId)
+      }
+    })
   }
 
 

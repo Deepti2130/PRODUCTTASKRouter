@@ -1,74 +1,80 @@
-<div class="row">
-  <div class="col text-right" >
-    <button
-    routerLink="addproduct"
-    mat-raised-button color="accent">Add Product</button>
+<div class="container">
+  <div class="row">
+    <div class="col text-right" >
+      <button
+      routerLink="addproduct"
+      mat-raised-button color="accent">Add Product</button>
+    </div>
   </div>
-</div>
 
 
 
-<div class="row">
-  <div class="col-lg-6 offset-md-3" >
-<!-- list of products -->
-<div
+  <div class="row">
+    <div class="col-lg-6" >
+  <!-- list of products -->
+  <div
 
-class="card mb-4" *ngFor="let product of productinfo"
-[routerLink]="product.id">
-  <div class="card-body"
-        [ngClass]="{
-          'notavail' : !product.isAvailable
-        }">
-          <div class="imgcontainer">
-            <img [src]="product.image"
-            class="img-fluid"
-            [alt] = "product.name"
-            [title] =" product.name"
-            *ngIf="product.image else noImg"
-              >
-            </div>
+  class="card mb-4" *ngFor="let product of productinfo"
+  [ngClass]="{
+    active: product.id == selectedprodId
+  }"
+  (click)="onclickproduct(product)"
 
-            <ng-template #noImg>
-              <p class="noimgmsg text-muted">
-              product image is not available
-              </p>
-            </ng-template>
-           </div>
+  [routerLink]="product.id"
+  [queryParams]="{canreturn:product.canreturn}">
+    <div class="card-body"
+          [ngClass]="{
+            'notavail' : !product.isAvailable
+          }">
+            <div class="imgcontainer">
+              <img [src]="product.image"
+              class="img-fluid"
+              [alt] = "product.name"
+              [title] =" product.name"
+              *ngIf="product.image else noImg"
+                >
+              </div>
+
+              <ng-template #noImg>
+                <p class="noimgmsg text-muted">
+                product image is not available
+                </p>
+              </ng-template>
+             </div>
 
 
-          <div class="pinfo ml-3">
-            <h3>
-              {{product.name}}
-              <small class="p-2"
-               [ngClass]="{
-                'bg-success':product. rating >= 4,
-                'bg-warning':product.rating >= 3 && product.rating < 4,
-                'bg-danger':product.rating < 3
-               }">
-                {{product.rating}}
+            <div class="pinfo ml-3">
+              <h3>
+                {{product.name}}
+                <small class="p-2"
+                 [ngClass]="{
+                  'bg-success':product. rating >= 4,
+                  'bg-warning':product.rating >= 3 && product.rating < 4,
+                  'bg-danger':product.rating < 3
+                 }">
+                  {{product.rating}}
+                </small>
+              </h3>
+
+
+
+              <h4>
+                {{product.offerprice}}
+              </h4>
+              <small class="text-muted pricecss">
+                {{product.price}}
+
               </small>
-            </h3>
-
-
-
-            <h4>
-              {{product.offerprice}}
-            </h4>
-            <small class="text-muted pricecss">
-              {{product.price}}
-
-            </small>
-            <strong class="d-block text-danger" *ngIf="product.noofitem < 10">
-              only {{product.noofitem}} left
-            </strong>
-           </div>
-           <br>
-           <div class="text-danger noproduct" *ngIf="!product.isAvailable">
-            Currently Unavailable
+              <strong class="d-block text-danger" *ngIf="product.noofitem < 10">
+                only {{product.noofitem}} left
+              </strong>
+             </div>
+             <br>
+             <div class="text-danger noproduct" *ngIf="!product.isAvailable">
+              Currently Unavailable
+            </div>
+            </div>
           </div>
-          </div>
-        </div>
-      </div>
 
 
 
@@ -84,7 +90,10 @@ class="card mb-4" *ngFor="let product of productinfo"
 
 
 
-  <div class="col-lg-6">
 
+    <div class="col-lg-6">
+    <router-outlet></router-outlet>
+    </div>
   </div>
 
+</div>
