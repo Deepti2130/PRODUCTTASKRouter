@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Iproduct } from 'src/app/shared/model/product';
+import { Observable } from 'rxjs';
+import { IcanDeactivateComp, Iproduct } from 'src/app/shared/model/product';
 import { ProductService } from 'src/app/shared/service/product.service';
 import { UuidService } from 'src/app/shared/service/uuid.service';
 
@@ -10,7 +11,7 @@ import { UuidService } from 'src/app/shared/service/uuid.service';
   templateUrl: './productform.component.html',
   styleUrls: ['./productform.component.scss']
 })
-export class ProductformComponent implements OnInit {
+export class ProductformComponent implements OnInit, IcanDeactivateComp {
 productId!:string
 
 productobj!:Iproduct
@@ -91,6 +92,26 @@ updatebtnFlag:boolean = false
     this.productForm.reset()
 
     this._productservice.updatedproduct(updatedobj)
+  }
+
+  canDeactivate(){
+   //if there is no any change in form === true
+
+   //change and updated === true
+
+
+    //change and not updated === ask???
+
+
+    //are you sure you want to descard the changes true || false
+
+    if(this.productForm.dirty){
+      let getconfirmation = confirm('Are you sure you want to descard the changes?')
+      return (getconfirmation)
+    }
+    return true
+
+
   }
 
 }

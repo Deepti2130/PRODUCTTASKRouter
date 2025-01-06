@@ -1,3 +1,5 @@
+import { Observable } from "rxjs";
+
 export interface Iproduct{
 
     id: string;
@@ -14,3 +16,11 @@ export interface Iproduct{
 }
 
 export type pstatus = "Inprogress" | "Dispatched" | "Delivered"
+
+
+
+export interface IcanDeactivateComp{
+
+  canDeactivate :() => boolean | Promise<boolean> | Observable<boolean>
+
+}
